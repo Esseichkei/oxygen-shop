@@ -30,7 +30,7 @@ $subdued-color-1: #A5A5A5;
 $subdued-color-2: #707070;
 $subdued-color-3: #95989A;
 
-.header {
+header {
     text-align: center;
     z-index: 10;
     width: 100%;
@@ -48,11 +48,15 @@ $subdued-color-3: #95989A;
         height: 5px;
     }
 }
-
-.indicator-bar {
-    height: 100%;
-    width: 0%;
-    background-color: $primary-accent;
+.indicator {
+    text-align: left;
+    width: 100%;
+    height: 5px;
+    &__bar {
+        height: 100%;
+        width: 0%;
+        background-color: $primary-accent;
+    }
 }
 
 .title {
@@ -490,8 +494,9 @@ h2.trademark {
 
     .header {
         height: 70px;
+        padding: 0px 20px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -501,6 +506,7 @@ h2.trademark {
 
     .nav {
         display:flex;
+        width: 50%;
         height: 100%;
         justify-content: space-around;
         align-items: flex-end;
