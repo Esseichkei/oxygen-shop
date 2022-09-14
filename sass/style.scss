@@ -42,6 +42,17 @@ $subdued-color-3: #95989A;
         display: inline-block;
         padding: 10px 0px;
     }
+    &__indicator {
+        text-align: left;
+        width: 100%;
+        height: 5px;
+    }
+}
+
+.indicator-bar {
+    height: 100%;
+    width: 0%;
+    background-color: $primary-accent;
 }
 
 .title {
@@ -440,25 +451,28 @@ li {
 
 .footer {
     box-shadow: 0px -5px 40px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 20px 0;
+    margin: 0;
     &__trademark {
+        padding-left: 5%;
         display: inline-block;
-        width: 70%;
+        width: 64.5%;
     }
     &__icon-cluster {
         display: inline-block;
         text-align: right;
-        width: 25%;
+        width: 29.5%;
     }
 }
 
 .trademark-disclaimer {
     font-size: 11px;
     color: $subdued-color-1;
+    padding: 0px;
 }
 
 .social-media-icon__img {
-    margin: 0 10px;
+    margin: 10px;
 }
 
 h2.trademark {
