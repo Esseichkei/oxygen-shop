@@ -207,35 +207,40 @@
                 </div>
             </section>
             <section class="contact" id="contact">
-                <div class="contact__prompt">
-                    <h1 class="big-text">Any questions?</h1>
-                    <h5 class="small-text">Leave your email address or call us!</h5>
-                    <div class="contact-data">
-                        <div class="contact-data__email">
-                            <img class="contact-icon" src="img/icons/mail.svg" />
-                            <h5 class="contact-text">
-                                info@bestshop.yxz
-                            </h5>
-                        </div>
-                        <div class="contact-data__phone">
-                            <img class="contact-icon" src="img/icons/phone.svg" />
-                            <h5 class="contact-text">
-                                123 456 789
-                            </h5>
+                <div class="contact-div">
+                    <div class="contact-div__prompt">
+                        <h1 class="big-text">Any questions?</h1>
+                        <h5 class="small-text">Leave your email address or call us!</h5>
+                        <div class="contact-data">
+                            <div class="contact-data__email">
+                                <img class="contact-icon" src="img/icons/mail.svg" />
+                                <h5 class="contact-text">
+                                    info@bestshop.yxz
+                                </h5>
+                            </div>
+                            <div class="contact-data__phone">
+                                <img class="contact-icon" src="img/icons/phone.svg" />
+                                <h5 class="contact-text">
+                                    123 456 789
+                                </h5>
+                            </div>
                         </div>
                     </div>
+                    <form class="contact-div__form">
+                        <label class="contact-label" for="name">NAME</label>
+                        <input type="text" name="name" id="name" class="contact-input">
+                        <label class="contact-label" for="email">EMAIL</label>
+                        <input type="text" name="email" id="email" class="contact-input">
+                        <div class="consent-container">
+                            <input type="checkbox" name="consent" id="consent" class="consent-container__checkbox">
+                            <label for="consent" class="consent-container__disclaimer">I hereby give consent for my personal data included in my application to be processed for the purposes of the recruitment process under the European Parliament’s and Council of the European Union Regulation on the Protection of Natural Persons as of 27 April 2016, with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (Data Protection Directive)</label>
+                        </div>
+                        <button class="button contact-button" type="button">Send</button>
+                    </form>
                 </div>
-                <form class="contact__form">
-                    <label class="contact-label" for="name">NAME</label>
-                    <input type="text" name="name" id="name" class="contact-input">
-                    <label class="contact-label" for="email">EMAIL</label>
-                    <input type="text" name="email" id="email" class="contact-input">
-                    <div class="consent-container">
-                        <input type="checkbox" name="consent" id="consent" class="consent-container__checkbox">
-                        <label for="consent" class="consent-container__disclaimer">I hereby give consent for my personal data included in my application to be processed for the purposes of the recruitment process under the European Parliament’s and Council of the European Union Regulation on the Protection of Natural Persons as of 27 April 2016, with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (Data Protection Directive)</label>
-                    </div>
-                    <button class="button contact-button" type="button">Send</button>
-                </form>
+                <div class="return-div">
+                    <button class="button" id="return-to-top">Return to the top</button>
+                </div>
             </section>
         </main>
         <footer class="footer">

@@ -405,9 +405,13 @@ li {
   box-shadow: 5px 10px 27px rgba(7, 172, 230, 0.29);
 }
 
-.contact {
+.contact-div {
   margin: 20px 10%;
   height: 100%;
+}
+
+.contact-div__form {
+  margin: 40px 0;
 }
 
 .big-text {
@@ -430,10 +434,6 @@ li {
   position: relative;
   top: 5px;
   margin-right: 20px;
-}
-
-.contact__form {
-  margin: 40px 0;
 }
 
 .contact-input {
@@ -513,6 +513,11 @@ h2.trademark {
   color: #08A6E4;
 }
 
+.return-div {
+  text-align: center;
+  margin: 30px;
+}
+
 @media only screen and (min-width: 600px) {
   .whyus__reasons {
     padding: 0 10%;
@@ -543,9 +548,7 @@ h2.trademark {
     align-items: flex-end;
   }
   .nav-text {
-    padding-left: 0px;
-    padding-right: 10px;
-    padding-bottom: 23px;
+    padding: 0px 0px 23px 0px;
     border-bottom: 2px solid transparent;
     font-size: 11px;
   }
@@ -651,17 +654,20 @@ h2.trademark {
     justify-content: center;
     align-items: center;
   }
-  .contact {
+  .contact-div {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
   }
-  .contact__form {
-    margin: 40px;
+  .contact-div__form {
+    margin: 0;
     width: 40%;
   }
-  .contact__prompt {
+  .contact-div__prompt {
     margin: 40px;
+  }
+  .consent-container__disclaimer {
+    width: 70%;
   }
   .contact-button {
     margin-left: 25%;

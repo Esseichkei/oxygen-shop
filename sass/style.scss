@@ -409,9 +409,12 @@ li {
     box-shadow: 5px 10px 27px rgba(7, 172, 230, 0.29);
 }
 
-.contact {
+.contact-div {
     margin: 20px 10%;
     height: 100%;
+    &__form {
+        margin: 40px 0;
+    }
 }
 
 .big-text {
@@ -434,10 +437,6 @@ li {
     position: relative;
     top:5px;
     margin-right: 20px;
-}
-
-.contact__form {
-    margin: 40px 0;
 }
 
 .contact-input {
@@ -513,6 +512,11 @@ h2.trademark {
     color: $primary-accent;
 }
 
+.return-div {
+    text-align: center;
+    margin: 30px;
+}
+
 @media only screen and (min-width: 600px) {
     .whyus__reasons {
         padding: 0 10%;
@@ -547,9 +551,7 @@ h2.trademark {
     }
 
     .nav-text {
-        padding-left: 0px;
-        padding-right: 10px;
-        padding-bottom: 23px;
+        padding: 0px 0px 23px 0px;
         border-bottom: 2px solid transparent;
         font-size: 11px;
     }
@@ -674,17 +676,22 @@ h2.trademark {
         justify-content: center;
         align-items: center;
     }
-    .contact {
+    .contact-div {
         display: flex;
         justify-content: space-around;
         align-items: flex-start;
+        &__form {
+            margin: 0;
+            width: 40%;
+        }
+        &__prompt {
+            margin: 40px;
+        };
     }
-    .contact__form {
-        margin: 40px;
-        width: 40%;
-    }
-    .contact__prompt {
-        margin: 40px;
+    .consent-container {
+        &__disclaimer {
+            width: 70%;
+        }
     }
     .contact-button {
         margin-left: 25%;

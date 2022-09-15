@@ -1,5 +1,12 @@
 let activeSection = 1;
 
+function getWorking () {
+    //console.log(`body height: ${document.documentElement.scrollHeight}`);
+    window.addEventListener('scroll', scrollIndicator);
+    document.querySelector(".nav-div__toggle").addEventListener('click', toggleNav);
+    document.getElementById("return-to-top").addEventListener('click', returnToTop);
+}
+
 function scrollIndicator() {
     //console.log(document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight));
     document.querySelector(".indicator__bar").style.width = `${100 * document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight)}%`;
@@ -32,13 +39,13 @@ function scrollIndicator() {
     }
 }
 
-function getWorking () {
-    //console.log(`body height: ${document.documentElement.scrollHeight}`);
-    window.addEventListener('scroll', scrollIndicator);
-    document.querySelector(".nav-div__toggle").addEventListener('click', toggleNav);
-}
-
 function toggleNav() {
     document.querySelector(".nav-div__toggle").classList.toggle('navtoggle--active');
     document.querySelector(".nav").classList.toggle('nav--active');
+}
+
+function returnToTop() {
+    setTimeout(() => {
+        document.querySelector(".whyus").scrollIntoView({behavior: "smooth"});
+    }, 200);
 }
