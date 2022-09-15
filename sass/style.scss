@@ -107,6 +107,7 @@ header {
     }
 
     &__img {
+        display: block;
         width: 100%;
         height: auto;
         margin: 20px 0;
@@ -115,6 +116,13 @@ header {
     &__tagline-2 {
         padding: 10px 15%;
     }
+}
+
+#header-img-desktop {
+    display: none;
+}
+#header-img-mobile {
+    display: block;
 }
 
 .icon {
@@ -519,6 +527,13 @@ h2.trademark {
 
     #nav-text-1 {
         border-bottom: 2px solid $primary-accent;
+    }
+
+    #header-img-desktop {
+        display: block;
+    }
+    #header-img-mobile {
+        display: none;
     }
 
     .island-highlight {
