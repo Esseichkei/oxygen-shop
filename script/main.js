@@ -83,7 +83,7 @@ function checkEmail() {
 
 function checkConsent() {
     console.log("Consent field changed!");
-    document.getElementById("consent").classList.toggle("redfield", !document.getElementById("consent").checked);
+    document.querySelector(".consent-div").classList.toggle("redfield", !document.getElementById("consent").checked);
     /*if (!document.getElementById("consent").checked) {
         console.log("Name set to wrong.");
         document.getElementById("consent").classList.toggle("redfield", !document.getElementById("consent").classList.contains("redfield"))
