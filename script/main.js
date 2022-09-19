@@ -11,6 +11,7 @@ function getWorking () {
     document.getElementById("name").addEventListener('change', checkName);
     document.getElementById("email").addEventListener('change', checkEmail);
     document.getElementById("consent").addEventListener('change', checkConsent);
+    document.querySelector(".contact-button").addEventListener('click', sendContactJSON);
 }
 
 function scrollIndicator() {
@@ -71,7 +72,7 @@ function checkName() {
 function checkEmail() {
     console.log("Email field changed!");
     const myReg = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    document.getElementById("email").classList.toggle("redfield", !myReg.test(document.getElementById("email").value.length));
+    document.getElementById("email").classList.toggle("redfield", !myReg.test(document.getElementById("email").value));
     /*if (!myReg.test(document.getElementById("email").value.length)) {
         console.log("Name set to wrong.");
         document.getElementById("email").classList.toggle("redfield", !document.getElementById("email").classList.contains("redfield"));
@@ -91,4 +92,19 @@ function checkConsent() {
         console.log("Name set to wrong.");
         document.getElementById("consent").classList.toggle("redfield", document.getElementById("consent").classList.contains("redfield"));
     }*/ // checks if email matches email regex
+}
+
+function sendContactJSON() {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
 }
