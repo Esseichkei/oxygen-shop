@@ -1,9 +1,9 @@
 let activeSection = 1;
 let activeModal = false;
 const emailReg = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-/*let verifiedFieldName = false;
-let verifiedFieldEmail = false;
-let verifiedFieldConsent = false;*/
+const pricetag1 = 0;
+const pricetag2 = 25;
+const pricetag3 = 60;
 
 function getWorking () {
     //console.log(`body height: ${document.documentElement.scrollHeight}`);
@@ -18,15 +18,14 @@ function getWorking () {
     document.querySelector(".modal-x").addEventListener('click', hideModal);
     document.querySelector(".modal-send").addEventListener('click', sendSubscriptionJSON);
     window.addEventListener("keydown", (ev) => {
-        console.log(ev.key);
         if (ev.key === "Escape") {
             hideModal();
         }
     })
-    
     if (window.localStorage.getItem("modal_shown") !== "yes") {
         setInterval(showModal, 5000);
     }
+    document.getElementById("currency").addEventListener('change', changeCurrency);
 }
 
 function scrollIndicator() {
@@ -143,4 +142,58 @@ function sendSubscriptionJSON() {
         .then((json) => console.log(json));
     }
     hideModal();
+}
+
+function changeCurrency() {
+    console.log(document.getElementById("currency").value);
+    if (document.getElementById("currency").value === "eur") {
+        const changeToEur = async () => {
+            try {
+                let response = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/eur.json', {
+                    cache: "no-cache",
+                    }
+                );
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                let object = await response.json();
+                const exchangeRate = object['eur'];
+                document.getElementById("pricetag-1").innerText = `€${(pricetag1 * exchangeRate).toFixed(2)}`;
+                document.getElementById("pricetag-2").innerText = `€${(pricetag2 * exchangeRate).toFixed(2)}`;
+                document.getElementById("pricetag-3").innerText = `€${(pricetag3 * exchangeRate).toFixed(2)}`;
+            }
+            catch(error) {
+                console.error(error.message);
+            }
+        }
+        changeToEur();
+    }
+    else if (document.getElementById("currency").value === "gbp") {
+        const changeToGbp = async () => {
+            try {
+                let response = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/gbp.json', {
+                    cache: "no-cache",
+                    }
+                );
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                let object = await response.json();
+                const exchangeRate = object['gbp'];
+                document.getElementById("pricetag-1").innerText = `£${(pricetag1 * exchangeRate).toFixed(2)}`;
+                document.getElementById("pricetag-2").innerText = `£${(pricetag2 * exchangeRate).toFixed(2)}`;
+                document.getElementById("pricetag-3").innerText = `£${(pricetag3 * exchangeRate).toFixed(2)}`;
+            }
+            catch(error) {
+                console.error(error.message);
+            }
+        }
+        changeToGbp();
+    }
+    else {
+        console.log(`Currency changed to bucks`);
+        document.getElementById("pricetag-1").innerText = `$${pricetag1}`;
+        document.getElementById("pricetag-2").innerText = `$${pricetag2}`;
+        document.getElementById("pricetag-3").innerText = `$${pricetag3}`;
+    }
 }
