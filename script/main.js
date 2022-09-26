@@ -15,12 +15,15 @@ class Slider {
         this._idDotPrefix = "dot-";
         this._activeImageIndex = 1;
     }
-    cycleToImage(target = 0) {
+    cycleToImage(target = 0) { /*
         for (let i = 1; i<= this._numberOfImages; i++) {
             document.getElementById(`${this._idPicPrefix}${i}`).classList.toggle("no-anim", false);
-        } // we clear any prior no-anim class on any of the images
+        } // we clear any prior no-anim class on any of the images */
         if (target === 0) {
             target = this._activeImageIndex + 1;
+            if (this._activeImageIndex > this._numberOfImages) {
+                target = 1;
+            }
         }
         if (target === this._activeImageIndex) {
             return; // we return early if we are already on our target
@@ -28,11 +31,53 @@ class Slider {
         if ((target < this._activeImageIndex && (target !== 1 && this._activeImageIndex !== 5)) || target === 5 && this._activeImageIndex === 1) {
             // index is smaller, we transition backwards (we also check for wrapping around the slider)
             if (target === 5 && this._activeImageIndex === 1) {
-                
+                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+                targetPicElem.classList.toggle("no-anim", true);
+                targetPicElem.classList.toggle("slider__img--left", false);
+                targetPicElem.classList.toggle("slider__img--right", true);
+                targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+                targetPicElem.classList.toggle("slider__img--right", false);
+                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
+                this._activeImageIndex = target;
+            }
+            else {
+                for (let i = target + 1; i < this._activeImageIndex; i++) {
+                    const targetPicElem = document.getElementById(`${this._idPicPrefix}${i}`);
+                    targetPicElem.classList.toggle("no-anim", true);
+                    targetPicElem.classList.toggle("slide__img--left", false);
+                    targetPicElem.classList.toggle("slide__img--right", true);
+                    targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+                }
+                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+                targetPicElem.classList.toggle("slide__img--left", false);
+                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
+                this._activeImageIndex = target;
             }
         }
-        else{ // index is greater, we transition forwards
-
+        else { // index is greater, we transition forwards
+            if (target === 1 && this._activeImageIndex === 5) {
+                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+                targetPicElem.classList.toggle("no-anim", true);
+                targetPicElem.classList.toggle("slider__img--right", false);
+                targetPicElem.classList.toggle("slider__img--left", true);
+                targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+                targetPicElem.classList.toggle("slider__img--left", false);
+                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
+                this._activeImageIndex = target;
+            }
+            else {
+                for (let i = target - 1; i > this._activeImageIndex; i--) {
+                    const targetPicElem = document.getElementById(`${this._idPicPrefix}${i}`);
+                    targetPicElem.classList.toggle("no-anim", true);
+                    targetPicElem.classList.toggle("slide__img--right", false);
+                    targetPicElem.classList.toggle("slide__img--left", true);
+                    targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+                }
+                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+                targetPicElem.classList.toggle("slide__img--right", false);
+                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
+                this._activeImageIndex = target;
+            }
         }
     }
 }
