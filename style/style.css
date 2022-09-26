@@ -17,7 +17,7 @@ a {
 
 header {
   text-align: center;
-  z-index: 10;
+  z-index: 100;
   width: 100%;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.29);
   position: fixed;
@@ -304,6 +304,7 @@ header__indicator {
   max-width: 315px;
   min-width: 180px;
   padding: 10px;
+  transition: all 200ms ease-out;
 }
 
 .pricediv__display {
@@ -566,6 +567,90 @@ h2.trademark {
 
 .hidden {
   display: none;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0;
+  padding: 0;
+  width: 100%;
+  height: 50vw;
+  min-height: 200px;
+}
+
+.slider__img {
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 50%;
+  left: 0%;
+  transform: translateY(-50%);
+  transition: transform 500ms ease-out;
+}
+
+.slider__img--left {
+  transform: translateY(-50%) translateX(-100%);
+}
+
+.slider__img--right {
+  transform: translateY(-50%) translateX(100%);
+}
+
+.slider__right {
+  z-index: 15;
+  position: absolute;
+  width: 10vw;
+  height: 10vw;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6vw;
+  transition: transform 500ms ease-out;
+}
+
+.slider__left {
+  z-index: 15;
+  position: absolute;
+  width: 10vw;
+  height: 10vw;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6vw;
+  transition: transform 500ms ease-out;
+}
+
+.slider__right:hover, .slider__left:hover {
+  transform: translateY(-50%) scale(1.3);
+}
+
+.slider__selector {
+  z-index: 50;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  z-index: 50;
+  display: inline-block;
+  height: 2vw;
+  width: 2vw;
+  margin: 1vw;
+  background-color: #707070;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 500ms ease-out;
+}
+
+.dot--active {
+  transform: scale(1.2);
+  background-color: #A5A5A5;
+}
+
+.no-anim {
+  transition-duration: 0ms;
 }
 
 @media only screen and (min-width: 600px) {

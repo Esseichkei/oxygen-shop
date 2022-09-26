@@ -5,6 +5,38 @@ const pricetag1 = 0;
 const pricetag2 = 25;
 const pricetag3 = 60;
 
+class Slider {
+    constructor(id) {
+        this._id = id;
+        this._numberOfImages = 5;
+        this._idLeftArrow = "slider-left-arrow";
+        this._idRightArrow = "slider-right-arrow";
+        this._idPicPrefix = "slider-img-";
+        this._idDotPrefix = "dot-";
+        this._activeImageIndex = 1;
+    }
+    cycleToImage(target = 0) {
+        for (let i = 1; i<= this._numberOfImages; i++) {
+            document.getElementById(`${this._idPicPrefix}${i}`).classList.toggle("no-anim", false);
+        } // we clear any prior no-anim class on any of the images
+        if (target === 0) {
+            target = this._activeImageIndex + 1;
+        }
+        if (target === this._activeImageIndex) {
+            return; // we return early if we are already on our target
+        }
+        if ((target < this._activeImageIndex && (target !== 1 && this._activeImageIndex !== 5)) || target === 5 && this._activeImageIndex === 1) {
+            // index is smaller, we transition backwards (we also check for wrapping around the slider)
+            if (target === 5 && this._activeImageIndex === 1) {
+                
+            }
+        }
+        else{ // index is greater, we transition forwards
+
+        }
+    }
+}
+
 function getWorking () {
     //console.log(`body height: ${document.documentElement.scrollHeight}`);
     window.addEventListener('scroll', scrollIndicator);
@@ -145,7 +177,6 @@ function sendSubscriptionJSON() {
 }
 
 function changeCurrency() {
-    console.log(document.getElementById("currency").value);
     if (document.getElementById("currency").value === "eur") {
         const changeToEur = async () => {
             try {
@@ -191,7 +222,6 @@ function changeCurrency() {
         changeToGbp();
     }
     else {
-        console.log(`Currency changed to bucks`);
         document.getElementById("pricetag-1").innerText = `$${pricetag1}`;
         document.getElementById("pricetag-2").innerText = `$${pricetag2}`;
         document.getElementById("pricetag-3").innerText = `$${pricetag3}`;
