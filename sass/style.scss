@@ -529,6 +529,44 @@ h2.trademark {
     border: 1px solid red;
 }
 
+.modal {
+    text-align: center;
+    z-index: 20;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-window {
+    vertical-align: center;
+    margin: 50vh 0;
+    transform: translateY(-50%);
+    display: inline-block;
+    background-color: #FFFFFF;
+    border: 1px solid black;
+    padding: 2vw;
+    border-radius: 1vw;
+    width: 60%;
+}
+
+.modal-row {
+    width:100%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#modal-row-1 {
+    text-align: right;
+}
+
+.hidden {
+    display: none;
+}
+
 @media only screen and (min-width: 600px) {
     .whyus__reasons {
         padding: 0 10%;
