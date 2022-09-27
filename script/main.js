@@ -14,6 +14,11 @@ class Slider {
         this._idPicPrefix = "slider-img-";
         this._idDotPrefix = "dot-";
         this._activeImageIndex = 1;
+        for (let i = 1; i <= this._numberOfImages; i++) {
+            document.getElementById(`${this._idDotPrefix}${i}`).addEventListener("click", this.clickDot());
+        }
+        document.getElementById(this._idLeftArrow).addEventListener("click", this.slideLeft());
+        document.getElementById(this._idRightArrow).addEventListener("click", this.slideRight());
     }
     cycleToImage(target = 0) { /*
         for (let i = 1; i<= this._numberOfImages; i++) {
@@ -28,56 +33,61 @@ class Slider {
         if (target === this._activeImageIndex) {
             return; // we return early if we are already on our target
         }
-        if ((target < this._activeImageIndex && (target !== 1 && this._activeImageIndex !== 5)) || target === 5 && this._activeImageIndex === 1) {
+        console.log(`current: ${this._activeImageIndex} / target: ${target}`);
+        if ((target < this._activeImageIndex && !(target === 1 && this._activeImageIndex === 5)) || target === 5 && this._activeImageIndex === 1) {
             // index is smaller, we transition backwards (we also check for wrapping around the slider)
-            if (target === 5 && this._activeImageIndex === 1) {
-                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
-                targetPicElem.classList.toggle("no-anim", true);
-                targetPicElem.classList.toggle("slider__img--left", false);
-                targetPicElem.classList.toggle("slider__img--right", true);
-                targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
-                targetPicElem.classList.toggle("slider__img--right", false);
-                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
-                this._activeImageIndex = target;
-            }
-            else {
-                for (let i = target + 1; i < this._activeImageIndex; i++) {
-                    const targetPicElem = document.getElementById(`${this._idPicPrefix}${i}`);
-                    targetPicElem.classList.toggle("no-anim", true);
-                    targetPicElem.classList.toggle("slide__img--left", false);
-                    targetPicElem.classList.toggle("slide__img--right", true);
-                    targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
-                }
-                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
-                targetPicElem.classList.toggle("slide__img--left", false);
-                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
-                this._activeImageIndex = target;
-            }
+            console.log('We go BACK!');
+            const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+            targetPicElem.classList.toggle("no-anim", true);
+            targetPicElem.classList.toggle("slider__img--right", false);
+            targetPicElem.classList.toggle("slider__img--left", true);
+            targetPicElem.offsetHeight; //flushes CSS for whichever reason
+            targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+            targetPicElem.classList.toggle("slider__img--left", false);
+            document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
+            this._activeImageIndex = target;
         }
         else { // index is greater, we transition forwards
-            if (target === 1 && this._activeImageIndex === 5) {
-                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
-                targetPicElem.classList.toggle("no-anim", true);
-                targetPicElem.classList.toggle("slider__img--right", false);
-                targetPicElem.classList.toggle("slider__img--left", true);
-                targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
-                targetPicElem.classList.toggle("slider__img--left", false);
-                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
-                this._activeImageIndex = target;
+            console.log('We go FORTH!');
+            const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
+            targetPicElem.classList.toggle("no-anim", true);
+            targetPicElem.classList.toggle("slider__img--left", false);
+            targetPicElem.classList.toggle("slider__img--right", true);
+            targetPicElem.offsetHeight; //flushes CSS for whichever reason
+            targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
+            targetPicElem.classList.toggle("slider__img--right", false);
+            document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
+            this._activeImageIndex = target;
+        }
+    }
+    slideRight() {
+        const mySlider = this;
+        return () => {
+            let target;
+            if (mySlider._activeImageIndex === mySlider._numberOfImages) {
+                target = 1;
+            } else {
+                target = mySlider._activeImageIndex + 1;
             }
-            else {
-                for (let i = target - 1; i > this._activeImageIndex; i--) {
-                    const targetPicElem = document.getElementById(`${this._idPicPrefix}${i}`);
-                    targetPicElem.classList.toggle("no-anim", true);
-                    targetPicElem.classList.toggle("slide__img--right", false);
-                    targetPicElem.classList.toggle("slide__img--left", true);
-                    targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
-                }
-                const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
-                targetPicElem.classList.toggle("slide__img--right", false);
-                document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
-                this._activeImageIndex = target;
+            mySlider.cycleToImage(target);
+        }
+    }
+    slideLeft() {
+        const mySlider = this;
+        return () => {
+            let target;
+            if (mySlider._activeImageIndex === 1) {
+                target = mySlider._numberOfImages;
+            } else {
+                target = mySlider._activeImageIndex - 1;
             }
+            mySlider.cycleToImage(target);
+        }
+    }
+    clickDot() {
+        const mySlider = this;
+        return (event) => {
+            console.log(`event.target.id: ${event.target.id}`);
         }
     }
 }
@@ -103,6 +113,7 @@ function getWorking () {
         setInterval(showModal, 5000);
     }
     document.getElementById("currency").addEventListener('change', changeCurrency);
+    const mySlider = new Slider("slider");
 }
 
 function scrollIndicator() {
@@ -198,8 +209,8 @@ function hideModal() {
     }
 }
 
-function hideModalByClick(e) {
-    if (e.target === e.currentTarget) {
+function hideModalByClick(event) {
+    if (event.target === event.currentTarget) {
         hideModal();
     }
 }
