@@ -19,6 +19,7 @@ class Slider {
         }
         document.getElementById(this._idLeftArrow).addEventListener("click", this.slideLeft());
         document.getElementById(this._idRightArrow).addEventListener("click", this.slideRight());
+        setTimeout(this.updateSlider(), 5000);
     }
     cycleToImage(target = 0) { /*
         for (let i = 1; i<= this._numberOfImages; i++) {
@@ -26,7 +27,7 @@ class Slider {
         } // we clear any prior no-anim class on any of the images */
         if (target === 0) {
             target = this._activeImageIndex + 1;
-            if (this._activeImageIndex > this._numberOfImages) {
+            if (target > this._numberOfImages) {
                 target = 1;
             }
         }
@@ -94,6 +95,13 @@ class Slider {
             console.log(`event.target.id: ${event.target.id}`);
             console.log(event.target.id.substr(mySlider._idDotPrefix.length));
             mySlider.cycleToImage(parseInt(event.target.id.substr(mySlider._idDotPrefix.length)));
+        }
+    }
+    updateSlider() {
+        const mySlider = this;
+        return () => {
+            mySlider.cycleToImage();
+            setTimeout(mySlider.updateSlider(), 5000);
         }
     }
 }
