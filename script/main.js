@@ -33,10 +33,10 @@ class Slider {
         if (target === this._activeImageIndex) {
             return; // we return early if we are already on our target
         }
-        console.log(`current: ${this._activeImageIndex} / target: ${target}`);
+        //console.log(`current: ${this._activeImageIndex} / target: ${target}`);
         if ((target < this._activeImageIndex && !(target === 1 && this._activeImageIndex === 5)) || target === 5 && this._activeImageIndex === 1) {
             // index is smaller, we transition backwards (we also check for wrapping around the slider)
-            console.log('We go BACK!');
+            //console.log('We go BACK!');
             const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
             targetPicElem.classList.toggle("no-anim", true);
             targetPicElem.classList.toggle("slider__img--right", false);
@@ -45,10 +45,12 @@ class Slider {
             targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
             targetPicElem.classList.toggle("slider__img--left", false);
             document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--right", true);
+            document.getElementById(`${this._idDotPrefix}${this._activeImageIndex}`).classList.toggle("dot--active", false);
+            document.getElementById(`${this._idDotPrefix}${target}`).classList.toggle("dot--active", true);
             this._activeImageIndex = target;
         }
         else { // index is greater, we transition forwards
-            console.log('We go FORTH!');
+            //console.log('We go FORTH!');
             const targetPicElem = document.getElementById(`${this._idPicPrefix}${target}`);
             targetPicElem.classList.toggle("no-anim", true);
             targetPicElem.classList.toggle("slider__img--left", false);
@@ -57,6 +59,8 @@ class Slider {
             targetPicElem.classList.toggle("no-anim", false); // flip direction without transition
             targetPicElem.classList.toggle("slider__img--right", false);
             document.getElementById(`${this._idPicPrefix}${this._activeImageIndex}`).classList.toggle("slider__img--left", true);
+            document.getElementById(`${this._idDotPrefix}${this._activeImageIndex}`).classList.toggle("dot--active", false);
+            document.getElementById(`${this._idDotPrefix}${target}`).classList.toggle("dot--active", true);
             this._activeImageIndex = target;
         }
     }
@@ -88,6 +92,8 @@ class Slider {
         const mySlider = this;
         return (event) => {
             console.log(`event.target.id: ${event.target.id}`);
+            console.log(event.target.id.substr(mySlider._idDotPrefix.length));
+            mySlider.cycleToImage(parseInt(event.target.id.substr(mySlider._idDotPrefix.length)));
         }
     }
 }
