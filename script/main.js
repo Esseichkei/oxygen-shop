@@ -14,6 +14,7 @@ class Slider {
         this._idPicPrefix = "slider-img-";
         this._idDotPrefix = "dot-";
         this._activeImageIndex = 1;
+        this._timeoutId = 0;
         for (let i = 1; i <= this._numberOfImages; i++) {
             document.getElementById(`${this._idDotPrefix}${i}`).addEventListener("click", this.clickDot());
         }
@@ -21,10 +22,11 @@ class Slider {
         document.getElementById(this._idRightArrow).addEventListener("click", this.slideRight());
         setTimeout(this.updateSlider(), 5000);
     }
-    cycleToImage(target = 0) { /*
-        for (let i = 1; i<= this._numberOfImages; i++) {
-            document.getElementById(`${this._idPicPrefix}${i}`).classList.toggle("no-anim", false);
-        } // we clear any prior no-anim class on any of the images */
+    cycleToImage(target = 0) {
+        if (this._timeoutId !== 0) {
+            clearTimeout(this._timeoutId);
+            this._timeoutId = 0;
+        }
         if (target === 0) {
             target = this._activeImageIndex + 1;
             if (target > this._numberOfImages) {
@@ -64,6 +66,7 @@ class Slider {
             document.getElementById(`${this._idDotPrefix}${target}`).classList.toggle("dot--active", true);
             this._activeImageIndex = target;
         }
+        this._timeoutId = setTimeout(this.updateSlider(), 5000);
     }
     slideRight() {
         const mySlider = this;
@@ -101,7 +104,6 @@ class Slider {
         const mySlider = this;
         return () => {
             mySlider.cycleToImage();
-            setTimeout(mySlider.updateSlider(), 5000);
         }
     }
 }
